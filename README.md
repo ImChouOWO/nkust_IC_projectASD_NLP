@@ -23,3 +23,7 @@
 
         前端功能：
                 周呈翰 聯絡方式：as0930859852@gmail.com
+        文書：
+                王嬿涵 聯絡方式：dk394u04c06@gmail.com
+                湯群毅 聯絡方式：tang.chuni801@gmail.com
+                呂季潔 聯絡方式：
