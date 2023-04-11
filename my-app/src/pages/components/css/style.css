@@ -11,6 +11,11 @@
   left: -10%;
   background-color: #00000035;
 }
+.ant-list-item{
+  position: relative;
+    margin: 10px 10px 10px 40%;
+
+}
  
   
   
