@@ -282,7 +282,7 @@ button {
 .navigation.navbar-dark .navbar-nav .nav-link {
      padding: 9px 22px;
      color: #fff;
-     font-size: 16px;
+     font-size: 22px;
      line-height: 20px;
      font-weight: 500;
      text-transform: uppercase;
@@ -335,10 +335,14 @@ button {
 }
 
 .yoga_box span {
-     color: #fff;
+     color: #f4a111;
      font-size: 28px;
      line-height: 20px;
      font-weight: bold;
+}
+
+.yoga_box span strong{
+     color: #ffffff;
 }
 
 .yoga_box h1 {
@@ -347,7 +351,9 @@ button {
      color: #f4a111;
      line-height: 150px;
 }
-.yo_img figure {margin: 0;}
+.yo_img figure {
+     margin: 0;
+}
 
 .yoga_box h1 strong {
      color: #fff;
@@ -442,6 +448,7 @@ button {
      background: #f4a111;
      color: #fff;
      transition: ease-in all 0.5s;
+     left: -10px;
 }
 
 
@@ -571,11 +578,11 @@ button {
 }
 
 .about_img {
-     margin: 0 46px;
+     margin: 0 20px;
 }
 
 .about_img figure {
-     margin: 0;
+     margin: 0 100px;
 }
 
 .about_img figure img {
@@ -623,7 +630,7 @@ button {
 }
 
 .padding_left0 {
-     padding-left: 0;
+     padding-left: 2;
 }
 
 
@@ -635,10 +642,11 @@ button {
 .pricing_main {
      background-color: #fff;
      padding-top: 90px;
+     padding-bottom: 110px;
 }
 
 .pricing_main .titlepage {
-     text-align: left;
+     text-align: right;
 }
 
 .pricing_main .titlepage span {
@@ -1122,4 +1130,37 @@ ul.social_icon li a:hover {
 
 .inner_page .blog {
      margin-top: 90px;
+}
+
+.our-goal {
+     display: flex;
+     justify-content: space-around;
+     padding: 8em;
+ }
+
+.our-goal .a-closer-look-container {
+     width: 10vw;
+ }
+
+.our-goal .our-goal-container h1 {
+     margin-top: 0em;
+     margin-bottom: 1em;
+     font-size: 3.2em;
+     color: rgba(20, 0, 110, 0.829);
+ }
+
+.our-goal .our-goal-container p {
+     margin-top: 2em;
+     margin-bottom: 0em;
+     font-size: 1.9em;
+     line-height: 1.5;
+ }
+
+.our-goal .our-goal-container span {
+     color:blue;
+ }
+
+.care {
+     width: 500px;
+     height: 400px;
 }

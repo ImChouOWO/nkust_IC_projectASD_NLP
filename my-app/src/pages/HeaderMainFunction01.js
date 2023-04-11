@@ -1,20 +1,17 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 import "../css/bootstrap.min.css";
 import "../css/style.css";
 import "../css/responsive.css";
-import "../css/jquery.mCustomScrollbar.min.css";
-import 'bootstrap/dist/css/bootstrap.css';
+import { Button, Space } from 'antd'
+
+
 import Headers from "./header";
 import Footer from "./footer";
 const MainFunction01 = () => {
+    const navigate = useNavigate();
   return(
       <main className="main-layout inner_page">
-      {/*<!-- loader  -->*/}
-      {/*<div className="loader_bg">*/}
-      {/*    <div className="loader"><img src={require("../components/images/gura.gif")} alt="#"/></div>*/}
-      {/*</div>*/}
-      {/*<!-- end loader -->*/}
-      {/*<!-- header -->*/}
       <Headers/>
 
       {/*<!-- end banner -->*/}
@@ -47,18 +44,22 @@ const MainFunction01 = () => {
                   </div>
                   <div className="col-md-4 col-sm-6 margin_bott">
                       <div className="our_yoga">
+                      <Button type="primary" onClick={()=>{navigate("/checkList")}}>前往</Button>
                           <figure><img src={require("../components/images/analyze.png")} alt="#"/></figure>
                           <h3>狀況分析</h3>
                           <span>這一切的起點!</span>
+                          
                       </div>
                   </div>
                   <div className="col-md-4 col-sm-6 d_none">
                   </div>
                   <div className="col-md-4 col-sm-6">
                       <div className="our_yoga">
+                    
                           <figure><img src={require("../components/images/speak.png")} alt="#"/></figure>
                           <h3>聊天機器人</h3>
-                          <span>與機器人聊天何嘗不是一種樂趣?</span>
+                          <span  >與機器人聊天何嘗不是一種樂趣?</span><br/>
+                          <Button type="primary" onClick={()=>{navigate("/chatRoom")}}>前往</Button>
                       </div>
                   </div>
                   <div className="col-md-4 col-sm-6 d_none">
@@ -67,7 +68,8 @@ const MainFunction01 = () => {
                       <div className="our_yoga">
                           <figure><img src={require("../components/images/block.png")} alt="#"/></figure>
                           <h3>各式小遊戲</h3>
-                          <span>小拼圖，趣味多。</span>
+                          <span>小拼圖，趣味多。</span><br/>
+                          <Button type="primary" onClick={()=>{navigate("/game")}}>前往</Button>
                       </div>
                   </div>
                   <div className="col-md-4 offset-md-4 col-sm-6  margin_top">
@@ -75,6 +77,7 @@ const MainFunction01 = () => {
                           <figure><img src={require("../components/images/opportunity.png")} alt="#"/></figure>
                           <h3>結果判斷</h3>
                           <span>可以依照上次結果進行對比!(如果有的話)</span>
+                          <Button type="primary" onClick={()=>{navigate("/dashboard")}}>前往</Button>
                           {/*<a className="read_more yoga_btn" href="Javascript:void(0)"> 閱讀更多</a>*/}
                       </div>
                   </div>
@@ -86,13 +89,6 @@ const MainFunction01 = () => {
       {/*<!--  footer -->*/}
       <Footer/>
       {/*<!-- end footer -->*/}
-      {/*<!-- Javascript files-->*/}
-      <script src={("../js/jquery.min.js")}></script>
-      <script src={("../js/bootstrap.bundle.min.js")}></script>
-      <script src={("../js/jquery-3.0.0.min.js")}></script>
-      {/*<!-- sidebar -->*/}
-      <script src={("../js/jquery.mCustomScrollbar.concat.min.js")}></script>
-      <script src={("../js/custom.js")}></script>
   </main>
   )
 }

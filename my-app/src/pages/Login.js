@@ -1,16 +1,84 @@
-import  React from "react";
+import  React, { useState,useEffect} from "react";
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import io from 'socket.io-client';
+import {Modal} from 'antd';
 import '../components/images/icons/favicon.ico';
-import '../vendor/bootstrap/css/bootstrap.min.css';
-import '../components/fonts/font-awesome-4.7.0/css/font-awesome.min.css';
-import '../vendor/animate/animate.css';
-import '../vendor/css-hamburgers/hamburgers.min.css';
-import '../vendor/select2/select2.min.css';
 import '../css/util.css';
 import '../css/main.css';
-import '../vendor/tilt/tilt.jquery.min';
-import 'bootstrap/dist/css/bootstrap.css';
+
+
 
 const Login = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [socket, setSocket] = useState(null);
+    const [message ,setMessage] = useState([]);
+    const [userName , setUserName] = useState(null)
+    const navigate = useNavigate();
+  
+  
+    
+    const handleEmailChange = (e) => setEmail(e.target.value);
+    const handlePasswordChange = (e) => setPassword(e.target.value);
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+    
+        socket.emit('login', [email, password]);
+    
+        socket.on('response', (data) => {
+            setMessage(data.message);
+            setUserName(data.message[0])
+        });
+        
+
+      };
+      useEffect(() => {
+        if (message[0]== 'error') {
+            console.log("user input error");
+            Modal.warning({
+                title: '帳號或密碼錯誤',
+                content: '請確認是否輸入錯誤',
+                destroyOnClose: true,
+                onOk() {
+                        setEmail("");       
+                        setPassword("");
+                        setMessage([]);
+                }
+                   
+            });
+           
+        }else if(message.length === 2 && message[0]!=="error"){
+            Cookies.set('token', email, { expires: 7 });  
+            Cookies.set('userEmail', email, { expires: 7 });  
+            Cookies.set('userName',userName,{expires:7}); 
+            navigate('/'); 
+        }
+         
+        }, [message]);
+    
+  
+
+      
+
+    useEffect(() => {
+        const newSocket = io('http://51.79.145.242:8585');
+          setSocket(newSocket);
+    
+          return () => {
+            newSocket.disconnect();
+          };
+        }, []);
+
+    
+   
+    
+      
+    
+    
+        
+
   return (
       <div className="Login">
           <div className="limiter">
@@ -27,7 +95,7 @@ const Login = () => {
 
                           <div className="wrap-input100 validate-input"
                                data-validate="Valid email is required: ex@abc.xyz">
-                              <input className="input100" type="text" name="email" placeholder="Email"/>
+                              <input className="input100" type="text" name="email" placeholder="Email" value={email} onChange={handleEmailChange} />
                                   <span className="focus-input100"></span>
                                   <span className="symbol-input100">
                                       <i className="fa fa-envelope" aria-hidden="true"></i>
@@ -35,7 +103,7 @@ const Login = () => {
                           </div>
 
                           <div className="wrap-input100 validate-input" data-validate="Password is required">
-                              <input className="input100" type="password" name="pass" placeholder="Password"/>
+                              <input className="input100" type="password" name="pass" placeholder="Password" value={password} onChange={handlePasswordChange}  />
                                   <span className="focus-input100"></span>
                                   <span className="symbol-input100">
                                       <i className="fa fa-lock" aria-hidden="true"></i>
@@ -43,9 +111,10 @@ const Login = () => {
                           </div>
 
                           <div className="container-login100-form-btn">
-                              <button className="login100-form-btn">
+                              <button type="button" className="login100-form-btn" onClick={handleSubmit} >
                                   登入
                               </button>
+                             
                           </div>
 
                           <div className="text-center p-t-12">
@@ -67,18 +136,6 @@ const Login = () => {
                   </div>
               </div>
           </div>
-
-          <script src="../../src/vendor/jquery/jquery-3.2.1.min.js"></script>
-          <script src="../../src/vendor/bootstrap/js/popper.js"></script>
-          <script src="../../src/vendor/bootstrap/js/bootstrap.min.js"></script>
-          <script src="../../src/vendor/select2/select2.min.js"></script>
-          <script src="../../src/vendor/tilt/tilt.jquery.min.js"></script>
-          {/*<script>*/}
-          {/*    $('.js-tilt').tilt({*/}
-          {/*    scale: 1.1*/}
-          {/*})*/}
-          {/*</script>*/}
-          <script src="../js/main"></script>
       </div>
   )
 }

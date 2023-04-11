@@ -1,16 +1,46 @@
-import React from "react";
-import "../css/bootstrap.min.css";
-import "../css/style.css";
-import "../css/responsive.css";
-import "../css/jquery.mCustomScrollbar.min.css";
-import 'bootstrap/dist/css/bootstrap.css';
-import { Link } from 'react-router-dom';
-
-
+import  React, { useState,useEffect} from "react";
+import { Link,useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import io from 'socket.io-client';
 
 
 
 const Headers = () => {
+    const [userName , setUserName] = useState("");
+    const [socket, setSocket] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(Boolean(userName));
+    const navigate = useNavigate();
+    useEffect(() => {
+        const newSocket = io('http://51.79.145.242:8585');
+          setSocket(newSocket);
+    
+          return () => {
+            newSocket.disconnect();
+          };
+        }, []);
+
+    useEffect(() => {
+        if (socket && document.cookie.indexOf('token') !== -1) {
+            const userToken = Cookies.get('token');
+            const nameToken = Cookies.get('userName');
+            setIsLoggedIn(true);
+            setUserName(nameToken)
+            
+        }
+        else{
+            setIsLoggedIn(false);
+        }
+    }, [socket]);
+    const logOut =()=>{
+        setIsLoggedIn(false);
+        Cookies.remove('token');
+
+        navigate("/")
+    }
+    
+        
+   
+        
    
   return(
     
@@ -26,7 +56,7 @@ const Headers = () => {
                           <div className="full">
                               <div className="center-desk">
                                   <div className="logo">
-                                      <a href=""><img src={require("../components/images/selfcare.png")} alt="#"/></a>
+                                      <a href=""><img src={require("../components/images/selfcare.png")}/></a>
                                   </div>
                               </div>
                           </div>
@@ -34,12 +64,13 @@ const Headers = () => {
                       
                       <div className="col-xl-9 col-lg-9 col-md-9 col-sm-9">
                           <nav className="navigation navbar navbar-expand-md navbar-dark ">
-                              <button className="navbar-toggler" type="button" data-toggle="collapse"
+                              {/* <button className="navbar-toggler" type="button" data-toggle="collapse"
                                       data-target="#navbarsExample04" aria-controls="navbarsExample04"
                                       aria-expanded="false" aria-label="Toggle navigation">
                                   <span className="navbar-toggler-icon"></span>
-                              </button>
-                              <div className="collapse navbar-collapse" id="navbarsExample04">
+                              </button> */}
+                              
+                              <div className="collapse navbar-collapse show" id="navbarsExample04">
                                   <ul className="navbar-nav mr-auto">
                                       <li className="nav-item ">
                                           
@@ -59,9 +90,27 @@ const Headers = () => {
                                       <li className="nav-item">
                                           < Link to="/aboutASD" className="nav-link" >關於自閉症</Link>
                                       </li>
-                                      <li className="nav-item">
-                                        < Link to="/login" className="nav-link" >Login</Link>
-                                      </li>
+
+                                      
+                                      {isLoggedIn ? (
+                                        <li className="nav-item">
+                                            <Link to="/" className="nav-link" onClick={logOut}>登出</Link>
+                                        </li>
+                                       
+                                        ) : (
+                                        <li className="nav-item">
+                                            <Link to="/login" className="nav-link">登入</Link>
+                                        </li>
+                                        )}
+                                        {isLoggedIn ? (
+                                        <li className="nav-item">
+                                            < Link to="/" className="nav-link" >歡迎 {userName}</Link>
+                                        </li>
+                                       
+                                        ) : (
+                                            <br></br>
+                                        )}
+                                      
                                   </ul>
                               </div>
                           </nav>
