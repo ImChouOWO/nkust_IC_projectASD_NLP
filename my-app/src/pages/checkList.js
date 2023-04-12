@@ -380,7 +380,7 @@ const CheckList = () => {
               <div className="row">
                   <div className="col-md-12">
                       <div className="title">
-                          <h2>關於我們</h2>
+                          <h2>狀況檢測量表</h2>
                       </div>
                   </div>
               </div>

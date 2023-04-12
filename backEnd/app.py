@@ -631,7 +631,7 @@ def story_data(data):
     email = data[1]
     time = data[2]
     print(time)
-    # connectDB_textData(freq,email,time)
+    connectDB_textData(freq,email,time)
     connectDB_content(data[0],email,"story","None")
 @socketio.on("dashboard")
 def dashboard_data(data):

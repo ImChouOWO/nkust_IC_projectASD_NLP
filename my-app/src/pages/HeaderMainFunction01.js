@@ -68,7 +68,7 @@ const MainFunction01 = () => {
                       <div className="our_yoga">
                           <figure><img src={require("../components/images/block.png")} alt="#"/></figure>
                           <h3>各式小遊戲</h3>
-                          <span>小拼圖，趣味多。</span><br/>
+                          <span>遊戲趣味多。</span><br/>
                           <Button type="primary" onClick={()=>{navigate("/game")}}>前往</Button>
                       </div>
                   </div>

@@ -103,7 +103,7 @@ const Story = () => {
     }
     else{
       socket.emit('story',[textArea,Cookies.get('userEmail'),timeArray] );
-      window.location.reload()
+      // window.location.reload()
     }
     
 
