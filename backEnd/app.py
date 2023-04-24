@@ -97,13 +97,13 @@ def connectDB_login(email , password):
 
             }
             }
-            for (user_id,user_email,user_name,user_password)in cursor:
+            for (user_id,user_email,user_name,user_password,gender)in cursor:
                 data['response'][str(i)] = {
                                         "user_id":user_id,
                                         "user_email": user_email,
                                         "user_name": user_name,
-                                        "user_password":user_password
-                                        
+                                        "user_password":user_password,
+                                        "gender":gender
                                         }
                 print(cursor)
                 i += 1
@@ -112,7 +112,7 @@ def connectDB_login(email , password):
                                         "user_id":"error",
                                         "user_email": "error",
                                         "user_name": "error",
-                                        "user_password":"error"                                 
+                                        "user_password":"error","gender":"error"                                 
                                         }
             return data
         
@@ -258,8 +258,64 @@ def get_story_data(email):
             return data
     except Error as e:
         print("資料庫連接失敗:", e) 
+def update_password(email, new_password):
+    try:
+        connection = mysql.connector.connect(
+            host='localhost',
+            database='projectASD',
+            user='root',
+            password='As2158936'
+        )
+        if connection.is_connected():
+            cursor = connection.cursor()
+            # 查询用户指定email对应的旧密码
+            get_password_sql = f"SELECT `user_password` FROM `user_index` WHERE `user_email` = '{email}'"
+            cursor.execute(get_password_sql)
+            result = cursor.fetchone()
+            if result == None: # 如果指定的email不存在
+                print("message: email not exist.")
+                return "notExist"
+            else:
+                old_password = result[0]
+                if old_password != new_password: # 如果旧密码不等于新密码
+                    # 更新密码
+                    update_sql = f"UPDATE `user_index` SET `user_password` = '{new_password}' WHERE `user_email` = '{email}'"
+                    cursor.execute(update_sql)
+                    connection.commit()
+                    print("message: update password successfully.")
+                    return "updateSuccessfully"
+                else:
+                    # 旧密码等于新密码，不需要更新
+                    print("message: old and new passwords are the same.")
+                    return "samePasswords"
+    except Error as e:
+        print("資料庫連接失敗:", e)
 
-
+def creat_user_data(email, password, userName, gender):
+    try:
+        connection = mysql.connector.connect(
+            host='localhost',
+            database='projectASD',
+            user='root',
+            password='As2158936'
+        )
+        if connection.is_connected():
+            cursor = connection.cursor()
+             # 检查 email 是否已存在于数据库中
+            check_sql = f"SELECT COUNT(*) FROM user_index WHERE user_email = '{email}'"
+            cursor.execute(check_sql)
+            count = cursor.fetchone()[0]
+            if count > 0:  # 如果 email 已存在于数据库中
+                print("message: the email already exists.")
+                return "exists"
+            else:  # 如果 email 不存在于数据库中
+                sql = f"INSERT INTO `user_index`(`user_email`, `user_name`, `user_password`, `gender`) VALUES ('{email}', '{userName}', '{password}', '{gender}')"
+                cursor.execute(sql)
+                connection.commit()
+                print("message: create user successfully.")
+                return "successfully"
+    except Error as e:
+        print("資料庫連接失敗:", e)
 
 def get_dashboard_data(email):
     try:
@@ -452,6 +508,21 @@ def Checklist():
 
 
 tmp = []
+@socketio.on("update")
+def user_data_updata(data):
+    print(data)
+    data = update_password(data[0],data[1])
+    print(data)
+    socketio.emit('response', {'message':data})
+@socketio.on('creat')
+def user_creat_count(data):
+    print(data)
+    data = creat_user_data(data[0],data[1],data[2],data[3])
+    print(data)
+    socketio.emit('response', {'message':data})
+    
+
+
 @socketio.on("login")
 def user_login(data):
     print('received email:' + data[0])
