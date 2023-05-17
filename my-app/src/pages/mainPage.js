@@ -40,7 +40,7 @@ const MainPage = () => {
         <div className="our-goal">
             <div className="our-goal-container">                
                 <h1>我們的目標</h1>
-                <p>伴星聊癒的主旨是透過以GPT-2所設計的聊天機器人與其他小功能(小遊戲..等)來幫助測試者<br />了解自己與<span>自閉症</span>的關係， 以及達到醫療輔助的功能。</p>
+                <p>伴星聊癒的主旨是透過以GPT所設計的聊天機器人與其他小功能(小遊戲..等)來幫助測試者<br />了解自己與<span>自閉症</span>的關係， 以及達到醫療輔助的功能。</p>
                 <p>我們的目標是做出一個能夠對人以及醫學有幫助的智能型聊天機器人。</p>
                 <p>我們希望透過<span>伴星聊癒</span>讓測試者能夠更了解自己、在未來能夠投入到醫療輔助的成效，甚至緩解患者的症狀。</p>
                 <a className="read_more yoga_btn" href="/about"> 關於我們</a>
@@ -75,14 +75,14 @@ const MainPage = () => {
                     <div className="col-md-12">
                         <div className="titlepage">
 
-                            <span>我們使用GPT-2對話式聊天機器人與Web自閉症檢測，判斷測試者目前的精神狀況 </span>
+                            <span>我們使用GPT對話式聊天機器人與Web自閉症檢測，判斷測試者目前的精神狀況 </span>
                         </div>
                     </div>
                     <div className="col-md-4">
                         <div className="pricing">
-                            <h3>GPT-2</h3>
+                            <h3>GPT</h3>
                             <p>辨別並理解句子的內容<br />進而判斷使用者精神狀況之嚴重性</p>
-                            <a className="read_more dark_bg" href="https://picture.iczhiku.com/weixin/message1588815507914.html" target="_blank"> 了解 GPT-2</a>
+                            <a className="read_more dark_bg" href="https://picture.iczhiku.com/weixin/message1588815507914.html" target="_blank"> 了解 GPT</a>
                         </div>
                     </div>
                     <div className="col-md-4">

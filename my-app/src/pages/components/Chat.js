@@ -20,7 +20,8 @@ const Chat = () => {
     useEffect(() => {
     const newSocket = io('http://51.79.145.242:8585');
       setSocket(newSocket);
-
+      const data = Cookies.get("userEmail");
+      newSocket.emit("firstChat",data)
       return () => {
         newSocket.disconnect();
       };

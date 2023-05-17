@@ -9,6 +9,7 @@ import datetime
 import jieba.posseg as pseg
 from collections import Counter
 import re
+import random
 
 
 app = Flask(__name__,
@@ -24,7 +25,7 @@ CORS(app, resources={r"/*": {"origins": "http://51.79.145.242:3000"}},
      methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"])
 
 socketio = SocketIO(app, cors_allowed_origins="*")
-openai.api_key = "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"
+openai.api_key = "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"
 
 def chat(prompt, model):
     completions = openai.Completion.create(
@@ -633,6 +634,43 @@ def user_register(data):
     socketio.emit("response",{"message":data})
 
 
+@socketio.on("firstChat")
+def user_first_chat(data):
+    print(data)
+    
+    response = {
+    0: "今天有發生什麼開心的事嗎？",
+    1: "你今天過得好嗎？",
+    2: "你今天有做過什麼有趣的事情嗎？",
+    3: "你今天吃了些什麼好吃的東西嗎？",
+    4: "你有看過什麼好看的電影或節目嗎？",
+    5: "你最喜歡的食物是什麼？",
+    6: "你喜歡看書嗎？有什麼好書推薦嗎？",
+    7: "你喜歡運動嗎？喜歡哪一種運動？",
+    8: "你喜歡旅遊嗎？去過哪些地方？",
+    9: "你最喜歡的顏色是什麼？",
+    10: "你有聽過什麼好聽的歌嗎？",
+    11: "你喜歡動物嗎？有哪些動物是你最喜歡的？",
+    12: "你喜歡玩哪些遊戲？",
+     13: "你喜歡下雨天還是晴天？",
+     14: "你有什麼愛好嗎？",
+     15: "你有哪些夢想？",
+     16: "你有什麼偶像或喜歡的名人嗎？",
+     17: "你喜歡與家人朋友一起做什麼？",
+     18: "你喜歡收集什麼東西嗎？",
+     19: "你最喜歡的節日是什麼？"
+}
+
+
+    botResponse = random.choice(response)
+    socketio.emit("message",[ "你好啊，歡迎使用此系統",data])
+    print(f"歡迎使用此系統\n{botResponse}")
+    socketio.emit("response",{'message':[ f"{botResponse}",data]})
+  
+    
+    
+
+
 @socketio.on('message')
 def handle_message(data):
     global tmp
@@ -641,14 +679,16 @@ def handle_message(data):
     socketio.emit('message', [data[0],data[1]])
     tmp = inputHistory(data[0],tmp,10)
     prompt = joinInput(tmp)
+    
     try:  
         response = chat(prompt, "text-davinci-003")
+        # connectDB_content(data[0],data[1],"chat",response)
     except:
         response = "SEVER ERROR"
     socketio.emit('response', {'message': [response,data[1]]})
     print(f"Bot: {response}")
     
-    # connectDB_content(data[0],data[1],"chat",response)
+    
 
 
 def line_chart_data(gameData):
