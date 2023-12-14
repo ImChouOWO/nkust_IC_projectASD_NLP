@@ -1,0 +1,68 @@
+
+.footer {
+    position: absolute; 
+    width: 100%;
+    background-color: #333; /* 页脚背景颜色 */
+    color: #fff; /* 页脚文字颜色 */
+    padding: 20px 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    bottom: 0px;
+}
+.developer .title{
+    color: white;
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom:10px ;
+}
+
+/* 页脚内容区 */
+.row_1, .row_2 {
+    display: flex;
+    justify-content: space-between; /* 使子元素均匀分布 */
+    align-items: center; /* 垂直居中对齐 */
+    margin: 0 auto;
+    max-width: 1200px; /* 最大宽度限制 */
+    padding: 0 20px; /* 内部填充 */
+}
+
+/* 第一行样式 */
+.column_1, .column_2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 子元素靠左对齐 */
+}
+
+.column_1 .content, .column_2 .content {
+    margin: 5px 0; /* 调整间距 */
+}
+
+/* 第二行样式 */
+.row_2 {
+    justify-content: center; /* 居中显示版本信息 */
+    padding-top: 20px; /* 顶部填充 */
+}
+
+/* 版本信息样式 */
+.ver p {
+    font-size: 14px;
+    font-weight: lighter;
+    opacity: 0.7;
+}
+
+/* 媒体查询用于小屏幕 */
+@media (max-width: 768px) {
+    .row_1, .row_2 {
+        flex-direction: column; /* 子元素垂直排列 */
+        align-items: center; /* 居中对齐 */
+    }
+
+    .column_1, .column_2 {
+        align-items: center;
+        margin-bottom: 20px; /* 调整底部间距 */
+    }
+
+    .content p {
+        text-align: center; /* 文字居中 */
+        font-size: 14px; /* 调整字体大小 */
+    }
+}

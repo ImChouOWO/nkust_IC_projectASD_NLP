@@ -3,9 +3,11 @@ import { Button,Divider, Modal , Input, Image, Space,Steps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import io from 'socket.io-client';
+import '../css/story.css'
 
 const Story = () => {
   const description = '點擊圖片，放大圖片';
+  const limit = '每張圖需要大於等於50字的描述'
   const { TextArea } = Input;
   const [currentState , setCrrent] = useState(0);
   const [nowPicture , setPicture] = useState([require("../img/story/story1.png"),require("../img/story/story2.png"),require("../img/story/story3.png"),require("../img/story/story4.png")])
@@ -18,6 +20,19 @@ const Story = () => {
   const [intervalId, setIntervalId] = useState(null);
   const [timer,setTimer] = useState(true);
   const [timeArray,setArray] = useState(['','','',''])
+  const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
+  useEffect(() => {
+    const handleResize = () => {
+        setSize({ width: window.innerWidth, height: window.innerHeight });
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // 清理函数
+    return () => {
+        window.removeEventListener('resize', handleResize);
+    };
+}, []);
 
   useEffect(() => {
     if (timer) {
@@ -61,21 +76,28 @@ const Story = () => {
   const nextPicture =()=>{
     
     setTime(0);
-    if (currentState <3) {
-      setCrrent(currentState+1);
-      timerIndex(currentTime);
-      if (currentState == 2) {
-        setText("提交")
-      }
+    if (textArea[currentState].length <=49) {
+      console.log("no input");
+      warning();
       
     }
-    if (btnText =="提交") {
-      console.log("finish");
-      timerIndex(currentTime);
-      clearInterval(intervalId);
-      setIntervalId(null);
-      showModal();
+    else{
+      if (currentState <3) {
+        setCrrent(currentState+1);
+        timerIndex(currentTime);
+        if (currentState == 2) {
+          setText("提交")
+        }
+        
+      }
+      if (btnText =="提交") {
+        console.log("finish");
+        timerIndex(currentTime);
+        clearInterval(intervalId);
+        setIntervalId(null);
+        showModal();
 
+      }
     }
   }
   const prePicture =()=>{
@@ -146,7 +168,7 @@ const Story = () => {
                 <p>{textArea[3]}</p>
               </Modal>
               
-             <Steps style={{marginBottom:"10px"}}
+             <Steps style={{margin:"20px",width:"100%"}}
                 current={currentState}
                 items={[
                   {
@@ -156,28 +178,30 @@ const Story = () => {
                   },
                   {
                     title: '第二張',
-                    description
+                    
+                    
                     
                    
                   },
                   {
                     title: '第三張',
-                    description
+                    
                     
                   },
                   {
                     title: '第四張',
-                    description
+                    
                     
                   },
                 ]}
               />
 
               <Space>
+                
               <Image 
-                width={400}
-                height={400}
-                style={{marginBottom:"20px"}}
+                width={size.width*.3}
+                height={size.width*.3}
+                style={{ marginBottom:"20px"}}
                 src={nowPicture[currentState]}
                 
               />
@@ -204,22 +228,28 @@ const Story = () => {
                   width: '100%',
                 }}
               >
+
+
+
+                
                 <TextArea
                     showCount
                     maxLength={100}
                     style={{
-                      height: 120,
+                      height: "auto",
                       marginBottom: 24,
+                      marginTop:10,
                       width:"100%",
-                      marginTop:10
+                     
+                      margin:"10px"
 
                     }}
                     onChange={onChange}
-                    placeholder="can resize"
+                    placeholder="至少需要大於等於50字"
                     allowClear="true"
                     value={textArea[currentState]}
                   />
-                  <Space.Compact direction="horizontal" style={{marginBottom: 24,}}>
+                  <Space.Compact direction="horizontal" style={{margin: "30px"}}>
                     <Button type="primary" onClick={prePicture}>上一張</Button>
                     <Button type="primary" onClick={nextPicture}>{btnText}</Button>
                   </Space.Compact>

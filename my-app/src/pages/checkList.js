@@ -1,13 +1,14 @@
 import  React, { useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
-import "../css/style.css";
 import io from 'socket.io-client';
 import Cookies from 'js-cookie';
 import "./components/css/list.css";
 import "../css/responsive.css";
+import "./ver2.0/css/checkList.css"
 import { Button,Divider, List,Steps ,Checkbox} from 'antd';
-import Headers from "./header";
-import Footer from "./footer";
+import Footer from "./ver2.0/footer";
+import Headers from "./ver2.0/header";
+import "./game/css/list.css";
 const CheckList = () => {
   const [socket, setSocket] = useState(null);
   useEffect(() => {
@@ -365,6 +366,9 @@ const CheckList = () => {
         console.log(Cookies.get('userEmail'));
         const userEmail = Cookies.get("userEmail");
         socket.emit("score",[checkedList,userEmail]);
+        Cookies.remove('hasScore');
+        Cookies.set("hasScore",true,{expires:7});
+        console.log(Cookies.get("hasScore"));
         navigate('/');
        
       }
@@ -375,21 +379,13 @@ const CheckList = () => {
   return(
       <main className="main-layout inner_page">
       <Headers/>
-      <div className="back_re">
-          <div className="container">
-              <div className="row">
-                  <div className="col-md-12">
-                      <div className="title">
-                          <h2>狀況檢測量表</h2>
-                      </div>
-                  </div>
-              </div>
-          </div>
+      <div className="titleList">
+         <span className="text">狀況檢測量表</span>
       </div>
       <Divider orientation="left">狀況檢測量表</Divider>
-      <div className="checkList" style={{ display: "flex" }}>
-        
-        <Steps style={{width:"20%" , marginRight:"10px" , marginLeft:"20px",marginTop:"10px"}}
+      <div className="checkList" style={{ display: "flex",padding:"30px" }}>
+        <div className="steps">
+        <Steps style={{width:"auto%" ,height:"100%"}}
               progressDot
               current={checkCount}
               direction="vertical"
@@ -420,9 +416,9 @@ const CheckList = () => {
               ]}
               
               />
-
-        
-            <List style={{width:"80%"}}
+            </div>
+          <div className="list">
+            <List style={{width:"100%"}}
             size="large"
             header={<div>共57題</div>}
             footer={
@@ -440,9 +436,9 @@ const CheckList = () => {
                 <Checkbox  checked={checkedItems[item]} style={{ fontSize: "18px"}}  onChange={onChange} value={item} >{item}</Checkbox>
             </List.Item>}
             />
-           
+           </div>
       </div>
-      <Footer/>
+
   </main>
   )
 }

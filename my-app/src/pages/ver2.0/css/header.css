@@ -1,0 +1,235 @@
+@media (min-width: 768px) {
+    .slider{
+        display: none;
+    }
+    .headerContainer {
+        background-color: #007bff; /* 設定為藍色背景 */
+        color: #fff; /* 文字顏色設為白色 */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加陰影以提升層次感 */
+    }
+    
+    .icon {
+        display: flex;
+        align-items: center;
+        padding: 10px 20px;
+    }
+    .menuIcon{
+        display: none;
+    }
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* 分開左右兩側內容 */
+    }
+    
+    .navBar {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+    }
+    
+    .nav {
+        margin-right: 20px;
+    }
+    
+    .navLink {
+        color: #fff; /* 連結顏色設為白色 */
+        text-decoration: none;
+        padding: 10px 15px;
+        transition: background-color 0.3s;
+    }
+    
+    .navLink:hover {
+        background-color: #0056b3; /* 滑鼠懸停時背景顏色變深 */
+        border-radius: 4px; /* 圓角效果 */
+    }
+}
+@media only screen and (max-width:376px) {
+    .headerAll {
+        position: relative; /* 父容器使用 relative 定位 */
+    }
+
+    .slider {
+        position: absolute; /* 使用 absolute 定位讓 slider 能夠重疊 */
+        top: 0; /* 設定於父容器的頂部 */
+        width: 100%; /* 讓 slider 寬度和父容器一樣 */
+        height: 70px;
+        background-color: rgba(128, 116, 116, 0.729);
+        z-index: 9; /* 確保這個值小於 headerContainer 的 z-index */
+        transition: 1s;
+    }
+    .sliderOpen {
+        position: absolute; /* 使用 absolute 定位讓 slider 能夠重疊 */
+        top: 70px; /* 設定於父容器的頂部 */
+        width: 100%; /* 讓 slider 寬度和父容器一樣 */
+        height: 40px;
+        background-color: rgba(128, 116, 116, 0.729);
+        z-index: 9; /* 確保這個值小於 headerContainer 的 z-index */
+        transition: 1s;
+    }
+
+    .headerContainer {
+        z-index: 10; /* 確保這個值大於 slider 的 z-index */
+        background-color: #007bff; /* 設定為藍色背景 */
+        color: #fff; /* 文字顏色設為白色 */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加陰影以提升層次感 */
+        position: relative; /* 確保 z-index 生效 */
+        height: 70px;
+    }
+
+    
+    .icon {
+        z-index: 11;
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding: 10px 20px;
+    }
+    .menuIcon{
+        z-index: 11;
+        display: flex;
+        margin: 0px 10px 10px 10px;
+        font-size: 30px;
+    }
+    .header {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* 分開左右兩側內容 */
+    }
+    
+    .navBar {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        display: none;
+    }
+    
+    .sliderOpen .navBar {
+        display: flex; /* 確保在 sliderOpen 下顯示 navBar */
+        font-size: 10px;
+        flex-direction: row; /* 讓菜單項目垂直堆疊 */
+        align-items: center; /* 將菜單項目居中對齊 */
+        padding-top: 10px; /* 在菜單項目上方增加一些間距 */
+        justify-content: space-between;
+        margin-left: 10px;
+    }
+
+    .nav {
+        margin-right: 0; /* 移除右邊距，因為我們現在是垂直堆疊 */
+        margin-bottom: 10px; /* 為每個菜單項目增加底部間距 */
+    }
+    
+    .navLink {
+        color: #fff; /* 連結顏色設為白色 */
+        text-decoration: none;
+        padding: 0px;
+        transition: background-color 0.3s;
+        width: 100%; /* 讓連結寬度與 slider 相同 */
+        text-align: center; /* 文字居中 */
+        font-size: 8px;
+    }
+    
+    .navLink:hover {
+        background-color: #0056b3; /* 滑鼠懸停時背景顏色變深 */
+        border-radius: 4px; /* 圓角效果 */
+    }
+}
+@media only screen and (max-width:767px)and (min-width:377px){
+    .headerAll {
+        position: relative; /* 父容器使用 relative 定位 */
+    }
+
+    .slider {
+        position: absolute; /* 使用 absolute 定位讓 slider 能夠重疊 */
+        top: 0; /* 設定於父容器的頂部 */
+        width: 100%; /* 讓 slider 寬度和父容器一樣 */
+        height: 70px;
+        background-color: rgba(128, 116, 116, 0.729);
+        z-index: 9; /* 確保這個值小於 headerContainer 的 z-index */
+        transition: 1s;
+    }
+    .sliderOpen {
+        position: absolute; /* 使用 absolute 定位讓 slider 能夠重疊 */
+        top: 70px; /* 設定於父容器的頂部 */
+        width: 100%; /* 讓 slider 寬度和父容器一樣 */
+        height: 40px;
+        background-color: rgba(128, 116, 116, 0.729);
+        z-index: 9; /* 確保這個值小於 headerContainer 的 z-index */
+        transition: 1s;
+    }
+
+    .headerContainer {
+        z-index: 10; /* 確保這個值大於 slider 的 z-index */
+        background-color: #007bff; /* 設定為藍色背景 */
+        color: #fff; /* 文字顏色設為白色 */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加陰影以提升層次感 */
+        position: relative; /* 確保 z-index 生效 */
+        height: 70px;
+    }
+
+    
+    .icon {
+        z-index: 11;
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding: 10px 20px;
+    }
+    .menuIcon{
+        z-index: 11;
+        display: flex;
+        margin: 0px 10px 10px 10px;
+        font-size: 30px;
+    }
+    .header {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* 分開左右兩側內容 */
+    }
+    
+    .navBar {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        display: none;
+    }
+    
+    .sliderOpen .navBar {
+        display: flex; /* 確保在 sliderOpen 下顯示 navBar */
+        font-size: 10px;
+        flex-direction: row; /* 讓菜單項目垂直堆疊 */
+        align-items: center; /* 將菜單項目居中對齊 */
+        padding-top: 10px; /* 在菜單項目上方增加一些間距 */
+        justify-content: space-between;
+        margin-left: 10px;
+    }
+
+    .nav {
+        margin-right: 0; /* 移除右邊距，因為我們現在是垂直堆疊 */
+        margin-bottom: 10px; /* 為每個菜單項目增加底部間距 */
+    }
+    
+    .navLink {
+        color: #fff; /* 連結顏色設為白色 */
+        text-decoration: none;
+        padding: 5px;
+        transition: background-color 0.3s;
+        width: 100%; /* 讓連結寬度與 slider 相同 */
+        text-align: center; /* 文字居中 */
+        font-size: 10px;
+    }
+    
+    .navLink:hover {
+        background-color: #0056b3; /* 滑鼠懸停時背景顏色變深 */
+        border-radius: 4px; /* 圓角效果 */
+    }
+}
+

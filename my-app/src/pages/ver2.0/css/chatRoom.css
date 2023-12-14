@@ -1,0 +1,29 @@
+
+.chatRoomContainer{
+    background-color: #fff; /* 卡片背景色 */
+    border-radius: 10px; /* 圓角 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 陰影效果 */
+    margin: 60px; /* 邊距 */
+   
+    padding: 40px; /* 內部間距 */
+    text-align: start; /* 文本居中 */
+    transition: all 0.3s; /* 過渡效果 */
+    flex: 0 0 48%; /* 每個 function 元素佔據大約一半的容器寬度 */
+    margin-bottom: 20px; /* 給元素之間一些垂直間隔 */
+}
+@media only screen and (max-width:767px){
+    .chatRoomContainer{
+        background-color: #fff; /* 卡片背景色 */
+        border-radius: 10px; /* 圓角 */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.196); /* 陰影效果 */
+        margin: 15px; /* 邊距 */
+       
+        padding: 5px; /* 內部間距 */
+        text-align: start; /* 文本居中 */
+        transition: all 0.3s; /* 過渡效果 */
+        flex: 0 0 48%; /* 每個 function 元素佔據大約一半的容器寬度 */
+        margin-bottom: 10px; /* 給元素之間一些垂直間隔 */
+        
+
+    }
+}

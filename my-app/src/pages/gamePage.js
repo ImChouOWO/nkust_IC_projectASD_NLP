@@ -1,11 +1,10 @@
 import  React, { useState} from "react";
-import "../css/style.css";
-import "../css/responsive.css";
-import Footer from "./footer";
-import Headers from "./header";
+import Footer from "./ver2.0/footer";
+import Headers from "./ver2.0/header";
 import { Button, Space } from 'antd';
 import Cards from "./game/components/Cards";
 import Story from "./game/components/Story";
+import "./ver2.0/css/game.css"
 
 
 const GamePage = () => {
@@ -60,22 +59,15 @@ const GamePage = () => {
     }
 
   return(
-      <main className="main-layout inner_page">
+      <>
       <Headers/>
       
-      <div className="back_re">
-          <div className="container">
-              <div className="row">
-                  <div className="col-md-12">
-                      <div className="title">
-                          <h2></h2>
-                      </div>
-                  </div>
-              </div>
-          </div>
+      <div className="titleList">
+         <span className="text">小遊戲</span>
       </div>
-      <div className="pepole">
-         <div className="container">
+        <div className="gameContainer">
+
+        
              <div className="row">
              {gameState ? (
                     <div className="buttonContainer">
@@ -97,24 +89,7 @@ const GamePage = () => {
                             看圖說故事
                         </Button>
                         </div>
-                        {/* <div className="selectBtn">
-                        <Button
-                            type="primary"
-                            loading={loadings[0]}
-                            onClick={() => cardLoading(0)}
-                        >
-                            memory game
-                        </Button>
-                        </div>
-                        <div className="selectBtn">
-                        <Button
-                            type="primary"
-                            loading={loadings[0]}
-                            onClick={() => storyLoading(0)}
-                        >
-                            puzzle game
-                        </Button>
-                        </div> */}
+        
                     </div>
                 ) : storyGame ? (
                 // 加入你想要顯示的拼圖遊戲元件
@@ -129,14 +104,14 @@ const GamePage = () => {
                 )}
 
             
+        
              
              </div>
-         </div>
-      </div>
+        </div>
       {/* <!-- footer --> */}
-      <Footer/>
+     
+      </>
 
-  </main>
   )
 }
 export default GamePage;

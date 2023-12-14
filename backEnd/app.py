@@ -10,7 +10,7 @@ import jieba.posseg as pseg
 from collections import Counter
 import re
 import random
-
+from snownlp import SnowNLP
 
 app = Flask(__name__,
             static_url_path='/python',   
@@ -19,14 +19,17 @@ app = Flask(__name__,
 app.config["DEBUG"] = True
 app.config['JSON_AS_ASCII'] = False
 
+
+
+
 CORS(app, resources={r"/*": {"origins": "http://51.79.145.242:3000"}},
      supports_credentials=True,
      allow_headers=["Content-Type", "Authorization"],
      methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"])
 
 socketio = SocketIO(app, cors_allowed_origins="*")
-openai.api_key = "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"
-
+openai.api_key = "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"
+loginCount = 0
 def chat(prompt, model):
     completions = openai.Completion.create(
         engine=model,
@@ -39,8 +42,57 @@ def chat(prompt, model):
     message = completions.choices[0].text.strip()
     return message
 
+
+def Sentiment(text):
+    
+    # 病況：中度自閉症
+    # 心理狀態:負面
+    # 文章長度：50字
+    # 被回覆內容：我今天心情很差，好多事情都沒進展
+    # 內容具備之情感：氛圍舒適 意圖明確 建立在同理心之上 詢問事情源由
+    # 必要條件:不得提及使用者的病況、使用繁體中文
+
+
+
+    s = SnowNLP(text)
+    sentiment = s.sentiments
+
+    # 输出情感得分
+    print('情感得分:', sentiment)
+
+    # 判断情感极性
+    if sentiment > 0.5:
+        print('正面情感')
+        return "Positive emotion"
+    elif sentiment < 0.5:
+        print('負面情感')
+        return 'Negative emotion'
+    else:
+        print('中性情感')
+        return 'Neutral emotion'
+
 def inputHistory(data,text, max_len=3):
-    userInput = data
+    
+    emotion =""
+    s = SnowNLP(data)
+    sentiment = s.sentiments
+
+    # 输出情感得分
+    print('情感得分:', sentiment)
+
+    # 判断情感极性
+    if sentiment > 0.5:
+        print('正面情感')
+        emotion =  " Positive emotion"
+    elif sentiment < 0.5:
+        print('負面情感')
+        emotion =  ' Negative emotion'
+    else:
+        print('中性情感')
+        emotion = ' Neutral emotion'
+
+    userInput = data+emotion
+
     if text == "":
         text = [userInput]
     else:
@@ -76,6 +128,52 @@ def connectDB_register(name,email,password):
                 return 'successfully'
     except Error as e:
         print("資料庫連接失敗:", e)        
+
+def connectDB_checkSocre(email):
+    try:
+        connection = mysql.connector.connect(
+            host='localhost',
+            database='projectASD',
+            user='root',
+            password='As2158936'
+        )
+        sql =f"SELECT * FROM `checkListSocre` WHERE user_email ='{email}'"
+        print(sql)
+        if connection.is_connected():
+
+            cursor = connection.cursor()
+           
+            cursor.execute(
+                sql)
+            i = 0
+            data = {"response": 
+            {
+
+            }
+            }
+            for (ID,date,user_email,score)in cursor:
+                data['response'][str(i)] = {
+                                        "ID":ID,
+                                        "user_email": user_email,
+                                        "score": score
+                                        }
+                print(cursor)
+                i += 1
+            if i == 0:
+                data['response'][str(i)] = {
+                                        "user_id":"error",
+                                        "user_email": "error",
+                                        "user_name": "error",
+                                        "user_password":"error","gender":"error"                                 
+                                        }
+            hasScore = False
+            if i !=0:
+                hasScore =True
+            return hasScore
+        
+    except Error as e:
+        print("資料庫連接失敗:", e)
+
 def connectDB_login(email , password):
     try:
         connection = mysql.connector.connect(
@@ -115,6 +213,9 @@ def connectDB_login(email , password):
                                         "user_name": "error",
                                         "user_password":"error","gender":"error"                                 
                                         }
+            if data['response']["0"]['user_id'] != "error":
+                global  loginCount
+                loginCount+=1
             return data
         
     except Error as e:
@@ -165,6 +266,7 @@ def connectDB_gameData(time,email,state,gameType):
             return 'insert successfully'
     except Error as e:
         print("資料庫連接失敗:", e) 
+
 
 def get_checkList_data(email):
     try:
@@ -369,19 +471,21 @@ def connectDB_getData():
             cursor = connection.cursor()
            
             cursor.execute(
-                "SELECT * FROM `Checklist` ORDER BY `Q_id` ASC;")
+                "SELECT * FROM `user_index`;")
             i = 0
             data = {"response": 
             {
 
             }
             }
-            for (Q_id,Question,score)in cursor:
-                data['response'][str(i)] = {
-                                        "Question": Question,
-                                        "score": score
+            tmp  = 0
+            for (userId,userEmail,userName,userPassword,gender)in cursor:
+                tmp+=1
+            data['response']["data"] = {
+                                        "count": loginCount,
+                                        "max":30,
+                                        "current_time":datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                                         }
-                i += 1
             print(data)
             return flask.jsonify(data)
     except Error as e:
@@ -521,7 +625,12 @@ def user_creat_count(data):
     data = creat_user_data(data[0],data[1],data[2],data[3])
     print(data)
     socketio.emit('response', {'message':data})
-    
+
+@socketio.on("logOut")
+def user_logOut(data):
+    print("logout",data)
+    global loginCount
+    loginCount -=data
 
 
 @socketio.on("login")
@@ -529,11 +638,12 @@ def user_login(data):
     print('received email:' + data[0])
     print("received password:"+data[1])
     index = connectDB_login(data[0],data[1])
-    print(index)
+    hasScore = connectDB_checkSocre(data[0])
+    print(hasScore)
     user_name = index["response"]["0"]['user_name']
     user_id = index['response']["0"]["user_id"]
     print(user_name)
-    socketio.emit('response', {'message':[user_name,user_id]})
+    socketio.emit('response', {'message':[user_name,user_id,bool(hasScore)]})
 
 checkList ={
             "喜歡長時間自身旋轉": 4,
@@ -640,25 +750,8 @@ def user_first_chat(data):
     
     response = {
     0: "今天有發生什麼開心的事嗎？",
-    1: "你今天過得好嗎？",
-    2: "你今天有做過什麼有趣的事情嗎？",
-    3: "你今天吃了些什麼好吃的東西嗎？",
-    4: "你有看過什麼好看的電影或節目嗎？",
-    5: "你最喜歡的食物是什麼？",
-    6: "你喜歡看書嗎？有什麼好書推薦嗎？",
-    7: "你喜歡運動嗎？喜歡哪一種運動？",
-    8: "你喜歡旅遊嗎？去過哪些地方？",
-    9: "你最喜歡的顏色是什麼？",
-    10: "你有聽過什麼好聽的歌嗎？",
-    11: "你喜歡動物嗎？有哪些動物是你最喜歡的？",
-    12: "你喜歡玩哪些遊戲？",
-     13: "你喜歡下雨天還是晴天？",
-     14: "你有什麼愛好嗎？",
-     15: "你有哪些夢想？",
-     16: "你有什麼偶像或喜歡的名人嗎？",
-     17: "你喜歡與家人朋友一起做什麼？",
-     18: "你喜歡收集什麼東西嗎？",
-     19: "你最喜歡的節日是什麼？"
+    1: "你今天有發生什麼特別的事嗎？",
+    2: "你今天有做過什麼有趣的事情嗎？"
 }
 
 
@@ -668,18 +761,25 @@ def user_first_chat(data):
     socketio.emit("response",{'message':[ f"{botResponse}",data]})
   
     
+
     
 
 
 @socketio.on('message')
 def handle_message(data):
     global tmp
+  
     
     print('received message: ' + data[0])
     socketio.emit('message', [data[0],data[1]])
     tmp = inputHistory(data[0],tmp,10)
-    prompt = joinInput(tmp)
-    
+
+
+
+
+
+    # prompt = f"你是一位心理治療師，我需要你以具備同理心、溫柔、感同身受的立場且精簡的回答接下來的問題，盡量延續話題，必要時侯能延伸其他相關話題，而使用者的輸入紀錄會存放於下列的歷史對話歷史對話：{joinInput(tmp)}"
+    prompt =f"  角色：朋友 回答資訊：{joinInput(tmp)} 回復長度：小於等於20字 內容具備之情感：氛圍舒適  詢問事情源由 必要條件:自然的對話、別提及內容包含關心的態度及同理心、不得提及使用者的病況、使用繁體中文、標點符號的使用符合中文規則"
     try:  
         response = chat(prompt, "text-davinci-003")
         # connectDB_content(data[0],data[1],"chat",response)
@@ -829,4 +929,5 @@ def dashboard_data(data):
     
 
 if __name__ == '__main__':
-    socketio.run(app,debug=True,port=8585,host="51.79.145.242")
+    socketio.run(app, debug=True, port=8585, host="51.79.145.242", allow_unsafe_werkzeug=True)
+

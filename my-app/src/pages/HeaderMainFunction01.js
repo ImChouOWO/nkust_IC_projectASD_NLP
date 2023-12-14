@@ -1,15 +1,34 @@
-import React from "react";
+import  React, { useState,useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
 import "../css/bootstrap.min.css";
 import "../css/style.css";
 import "../css/responsive.css";
-import { Button, Space } from 'antd'
-
-
+import { Button, Modal } from 'antd'
+import Cookies from 'js-cookie';
 import Headers from "./header";
 import Footer from "./footer";
+
 const MainFunction01 = () => {
     const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    useEffect(()=>{
+        if (Cookies.get('hasScore') == "false") {
+            setIsModalOpen(true);  
+        } else if(Cookies.get('hasScore') == "true"){
+            setIsModalOpen(false);  
+        }
+    })
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+        navigate('/checkList');
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+        navigate('/');
+    };
   return(
       <main className="main-layout inner_page">
       <Headers/>
@@ -26,6 +45,10 @@ const MainFunction01 = () => {
               </div>
           </div>
       </div>
+      <Modal title="需填寫檢測量表" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <p>點選確認跳轉頁面</p>
+        <p>點選取消回到首頁</p>
+      </Modal>
       {/*<!-- our classes -->*/}
       <div className="classes">
           <div className="container">

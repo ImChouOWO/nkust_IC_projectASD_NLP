@@ -1,0 +1,81 @@
+.chartBody{
+    min-height: 160vh;
+    position: relative; /* 添加相對定位 */
+    padding-bottom: 60px; /* 為footer預留空間，根據footer的高度調整 */
+}
+.chartContainer .all {
+    display: flex;
+    flex-wrap: wrap; /* 允许项目换行 */
+    justify-content: space-between; /* 项目之间保持间隔 */
+    padding: 60px;
+}
+.chartContainer .score {
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    flex-wrap: wrap; /* 允许子元素换行 */
+}
+
+.score .row {
+    width: 100%; /* 占满父容器宽度 */
+    display: flex;
+    justify-content: space-around; /* 子元素平均分布 */
+    align-items: center; /* 垂直居中 */
+}
+
+.score .col {
+    flex: 1; /* 子元素平均分布空间 */
+    text-align: center; /* 文本居中 */
+}
+
+.chartCard .content{
+    display: flex;
+    justify-content: center;
+    
+}
+
+.chartCard {
+    flex: 0 0 46%; /* 每个卡片占据大约一半的宽度 */
+    margin-bottom: 20px; /* 卡片之间的垂直间距 */
+    background-color: rgb(248, 246, 246);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.275);
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s;
+ 
+
+}
+.chartCardMin{
+        display: none;
+        flex: 0 0 48%; /* 每个卡片占据大约一半的宽度 */
+        margin-bottom: 20px; /* 卡片之间的垂直间距 */
+        background-color: rgb(248, 246, 246);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.275);
+        margin: 10px;
+        padding: 20px;
+        text-align: center;
+        transition: all 0.3s;
+}
+
+/* 媒体查询用于小型设备 */
+
+@media only screen and (max-width:765px) {
+    .chartBody{
+        min-height: 130vh;
+    }
+    .chartCard{
+        display: none;
+    }
+    .chartCardMin{
+        display: unset;
+        flex: 0 0 100%; /* 每个卡片占据大约一半的宽度 */
+    }
+    .chartCardMin .alert span{
+        color: gray;
+        font-weight: 400;
+    }
+    
+}

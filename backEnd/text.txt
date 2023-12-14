@@ -1,0 +1,10 @@
+WebSocket transport not available. Install simple-websocket for improved performance.
+ * Serving Flask app 'app'
+ * Debug mode: on
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://51.79.145.242:8585
+Press CTRL+C to quit
+ * Restarting with stat
+WebSocket transport not available. Install simple-websocket for improved performance.
+ * Debugger is active!
+ * Debugger PIN: 140-067-893

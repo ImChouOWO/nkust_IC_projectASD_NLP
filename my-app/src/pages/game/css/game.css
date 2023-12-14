@@ -173,3 +173,39 @@
   font-size: 2rem;
   padding-top: 3rem;
 }
+/* 原有的 CSS 样式... */
+
+/* 媒体查询用于小型设备 */
+@media (max-width: 768px) {
+  .buttonContainer {
+      height: auto; /* 调整为自动高度 */
+      padding: 10px; /* 减小填充 */
+      margin-bottom: 20px;
+  }
+
+  .selectBtn button {
+      width: 150px; /* 减小按钮宽度 */
+      height: 80px; /* 减小按钮高度 */
+      font-size: 16px; /* 调整字体大小 */
+  }
+
+  .containerCard {
+      height: auto; /* 调整为自动高度 */
+      width: 100%; /* 宽度占满容器 */
+      grid-template-columns: repeat(4, 1fr); /* 保持 4 列布局 */
+      gap: 0.5em; /* 减小间隙 */
+  }
+
+
+
+  .puzzleContainer {
+      width: 100%; /* 宽度占满容器 */
+      height: auto; /* 调整为自动高度 */
+  }
+
+  .puzzleContainer ul li {
+      /* 如有需要，调整拼图块的样式 */
+      height: auto; /* 调整为自动高度 */
+      padding-top: 1rem; /* 调整填充 */
+  }
+}

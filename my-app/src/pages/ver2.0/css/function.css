@@ -1,0 +1,72 @@
+.founctionBody{
+    margin: 0;
+    min-height: 180vh;
+    position: relative; /* 添加相對定位 */
+    padding-bottom: 60px; /* 為footer預留空間，根據footer的高度調整 */
+  
+}
+.functionContanier{
+    margin-top: 60px;
+}
+.functionContanier .content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* 或者使用 space-between 根據需求調整 */
+    padding: 20px;
+}
+.function {
+    background-color: rgb(248, 246, 246); /* 卡片背景色 */
+    border-radius: 10px; /* 圓角 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.275); /* 陰影效果 */
+    margin: 10px; /* 邊距 */
+    padding: 20px; /* 內部間距 */
+    text-align: center; /* 文本居中 */
+    transition: all 0.3s; /* 過渡效果 */
+    flex: 0 0 48%; /* 每個 function 元素佔據大約一半的容器寬度 */
+    margin-bottom: 20px; /* 給元素之間一些垂直間隔 */
+}
+
+.function:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 滑鼠懸停時的陰影效果 */
+}
+
+.function img {
+    width: 40%; /* 圖片寬度 */
+    height: auto; /* 圖片高度自動 */
+    border-top-left-radius: 10px; /* 上左圓角 */
+    border-top-right-radius: 10px; /* 上右圓角 */
+}
+
+.function span {
+    display: block; /* 塊級元素 */
+    margin-top: 10px; /* 上邊距 */
+    font-size: 18px; /* 字體大小 */
+    color: #333; /* 字體顏色 */
+}
+
+.btn {
+    background-color: #007bff; /* 按鈕背景色 */
+    color: white; /* 文本顏色 */
+    border: none; /* 無邊框 */
+    padding: 10px 20px; /* 內邊距 */
+    margin-top: 15px; /* 上邊距 */
+    border-radius: 5px; /* 圓角 */
+    cursor: pointer; /* 滑鼠指針變換 */
+    transition: all 0.3s; /* 過渡效果 */
+}
+
+.btn:hover {
+    background-color: #0056b3; /* 滑鼠懸停時的背景色 */
+}
+@media (max-width: 768px) {
+    .founctionBody{
+        margin: 0;
+        min-height: 250vh;
+        position: relative; /* 添加相對定位 */
+        padding-bottom: 60px; /* 為footer預留空間，根據footer的高度調整 */
+      
+    }
+    .function {
+        flex: 0 0 100%; /* 在小型裝置上，每個 function 元素佔據整行 */
+    }
+}

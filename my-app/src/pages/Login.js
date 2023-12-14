@@ -1,5 +1,5 @@
 import  React, { useState,useEffect} from "react";
-import { useNavigate } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import io from 'socket.io-client';
 import { Modal,Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space } from 'antd';
@@ -16,7 +16,7 @@ const Login = () => {
     const [socket, setSocket] = useState(null);
     const [message ,setMessage] = useState([]);
     const [userName , setUserName] = useState(null);
-    
+    const [hasscore , setScore] = useState(null)
     const navigate = useNavigate();
     
   
@@ -32,19 +32,25 @@ const Login = () => {
     const handleNameChage = (e) => setUserName(e.target.value);
     const handleSubmit = (event) => {
         event.preventDefault();
-    
+        console.log(email);
+        console.log(password);
+        
+        
         socket.emit('login', [email, password]);
-    
         socket.on('response', (data) => {
             setMessage(data.message);
-            setUserName(data.message[0])
+            setUserName(data.message[0]);
+            console.log(data.message[0]);
+
         });
-        
+       
 
       };
       useEffect(() => {
+        
         if (message[0]== 'error') {
             console.log("user input error");
+            
             Modal.warning({
                 title: '帳號或密碼錯誤',
                 content: '請確認是否輸入錯誤',
@@ -57,11 +63,13 @@ const Login = () => {
                    
             });
            
-        }else if(message.length === 2 && message[0]!=="error"){
+        }else if(message.length == 3 && message[0]!=="error"){
             Cookies.set('token', email, { expires: 7 });  
             Cookies.set('userEmail', email, { expires: 7 });  
             Cookies.set('userName',userName,{expires:7}); 
+            Cookies.set("hasScore",hasscore,{expires:7});
             navigate('/'); 
+          
         }
         else if(message =="exists"){
             Modal.warning({
@@ -132,7 +140,7 @@ const Login = () => {
             });
         }
          
-        }, [message]);
+    }, [message]);
     
         
 

@@ -1,7 +1,8 @@
 import React from "react";
 import "../css/style.css";
 import "../css/responsive.css";
-import Headers from "./header";
+import Footer from "./ver2.0/footer";
+import Headers from "./ver2.0/header";
 
 
 const NotFound = () => {

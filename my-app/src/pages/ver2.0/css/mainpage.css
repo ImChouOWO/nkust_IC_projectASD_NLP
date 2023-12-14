@@ -1,0 +1,292 @@
+.mainBody {
+    margin: 0;
+    min-height: 250vh;
+    position: relative; /* 添加相對定位 */
+    padding-bottom: 60px; /* 為footer預留空間，根據footer的高度調整 */
+    
+}
+
+.goalContainer {
+    width: 100%;
+    height: 70vh;
+    
+    display: flex; /* 使用 Flexbox */
+    align-items: center; /* 如果你希望他們垂直居中 */
+    justify-content: space-between; /* 如果你希望在兩個元素之間有些間隔 */
+}
+
+.goalContent {
+   
+    width: 60%; /* 或者是你想要的具體的寬度 */
+    height: 70vh; /* 設定高度 */
+}
+
+.goalImg {
+    
+    width: 40%; /* 或者是你想要的具體的寬度 */
+    height: 70vh; /* 設定高度 */
+}
+.goalContainer .content{
+    padding: 60px;
+}
+.goalContainer  .content .title{
+    margin-bottom: 10px;
+    font-size: 40px;
+    font-weight: bolder;
+    color:  rgba(20,0,110,.829);
+
+    
+}
+.innerContent{
+    padding: 10px;
+    width: 80%;
+}
+.innerContent p{
+    color: black;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.highlight {
+    color: #007bff; /* 設定成你希望的顏色 */
+}
+.aboutContainer {
+    margin: 30px;
+    padding: 40px;
+    background-color: rgb(45, 45, 118);
+    height: 60vh;
+    display: flex; /* 啟用 Flexbox */
+    align-items: center; /* 垂直居中 */
+    justify-content: space-between; /* 元素間有間隔 */
+}
+
+.aboutContent {
+    
+    width: 60%; /* 具的寬度 */
+    height: 80vh; /* 高度 */
+    display: flex; /* 啟用 Flexbox */
+    flex-direction: column; /* 子元素垂直排列 */
+    justify-content: center; /* 垂直居中 */
+    
+    
+    padding: 10px; /* 根據需要添加內距 */
+}
+.textDiv{
+    padding: 120px;
+}
+.textDiv .title{
+    font-size: 30px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: white;
+}
+.textDiv .text{
+    font-size: 18px;
+    color: white;
+}
+.aboutImg {
+   
+    width: 40%; /* 具體的寬度 */
+   
+}
+.aboutImg img{
+    width: 90%;
+    height: auto;
+}
+.skillContainer{
+    position: absolute; 
+  
+}
+.skillContent span{
+    font-weight: bolder;
+    font-size: 20px;
+}
+.column{
+    margin: 40px;
+
+}
+.column .skillName,.aboutSkill{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.column .skillName{
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+.aboutSkill{
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: #639ad6;
+    padding: 5px;
+    
+}
+.aboutSkill:hover{
+    background-color: rgb(86, 185, 224);
+    border-radius: 20px;
+    transition: 1s;
+}
+.content .row_1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.content .row_1 .title{
+    font-size: 20px;
+    font-weight: 800;
+    color: black;
+}
+.skillContainer .content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+ 
+}
+@media (max-width: 420px){
+    .mainBody{
+        height: 400vh;
+      }
+      .goalContainer .content .title {
+        font-size: 35px;
+        font-weight: bolder;
+        color: rgba(20,0,110,.829);
+    }
+    .goalImg img{
+        display: none;
+    }
+      .textDiv .title {
+        font-size: 25px;
+        margin-bottom: 20px;
+        font-weight: bold;
+        color: white;
+    }
+    .content .text {
+        text-align: start;
+        margin-bottom: 30px;
+    }
+    .textDiv .text {
+        font-size: 15px;
+        color: white;
+    }
+    .goalContainer {
+        flex-direction: column; /* 元素垂直排列 */
+        height: auto; /* 高度自適應 */
+    }
+
+    .goalContent, .goalImg {
+        width: 100%; /* 全寬 */
+        height: auto; /* 高度自適應 */
+    }
+    .aboutContainer{
+        margin: 0px;
+    }
+    .innerContent{
+        padding: 10px;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .aboutContainer, .aboutContent, .aboutImg {
+        width: 100%; /* 全寬 */
+        height: auto; /* 高度自適應 */
+        flex-direction: column; /* 元素垂直排列 */
+    }
+    .textDiv{
+        padding: 0px;
+    }
+
+    .skillContainer {
+        position: relative; /* 改為相對定位 */
+        margin-top: 20px;
+    }
+
+    .skillContainer .content {
+        flex-direction: column; /* 元素垂直排列 */
+    }
+    .buttonDiv{
+        padding: 60px;
+    }
+
+    .column, .aboutSkill {
+        width: 100%; /* 全寬 */
+        margin: 20px 0; /* 調整邊距 */
+    }
+}
+@media (max-width: 768px)and(min-width:421) {
+    .mainBody{
+        height: 400vh;
+      }
+      .goalContainer .content .title {
+        font-size: 35px;
+        font-weight: bolder;
+        color: rgba(20,0,110,.829);
+    }
+    .goalImg img{
+        display: none;
+    }
+      .textDiv .title {
+        font-size: 25px;
+        margin-bottom: 20px;
+        font-weight: bold;
+        color: white;
+    }
+    .content .text {
+        text-align: start;
+        margin-bottom: 30px;
+    }
+    .textDiv .text {
+        font-size: 15px;
+        color: white;
+    }
+    .goalContainer {
+        flex-direction: column; /* 元素垂直排列 */
+        height: auto; /* 高度自適應 */
+    }
+
+    .goalContent, .goalImg {
+        width: 100%; /* 全寬 */
+        height: auto; /* 高度自適應 */
+    }
+    .aboutContainer{
+        margin: 0px;
+    }
+    .innerContent{
+        padding: 10px;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .aboutContainer, .aboutContent, .aboutImg {
+        width: 100%; /* 全寬 */
+        height: auto; /* 高度自適應 */
+        flex-direction: column; /* 元素垂直排列 */
+    }
+    .textDiv{
+        padding: 0px;
+    }
+
+    .skillContainer {
+        position: relative; /* 改為相對定位 */
+        margin-top: 20px;
+    }
+
+    .skillContainer .content {
+        flex-direction: column; /* 元素垂直排列 */
+    }
+    .buttonDiv{
+        padding: 60px;
+    }
+
+    .column, .aboutSkill {
+        width: 100%; /* 全寬 */
+        margin: 20px 0; /* 調整邊距 */
+    }
+}
+
+
+
+
+
+
+  

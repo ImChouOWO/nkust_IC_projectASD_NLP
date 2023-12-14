@@ -67,20 +67,24 @@ const Chat = () => {
         dataSource={messages}
         renderItem={(item) => <List.Item>{item}</List.Item>}
       />
-      <div style={{ margin: 24, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div style={{ margin: 40, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <TextArea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Enter message"
           autoSize={{ minRows: 2  , maxRows: 6 }}>
-          
+            
         </TextArea>
-        <Button  type="primary"  onClick={sendMessage}>
-        <PlayCircleFilled />
-        </Button>   
+       
+         
         
         
       </div>
+
+      <Button  style={{display: 'flex', margin: 40}}  type="primary"  onClick={sendMessage}>
+          {/* <PlayCircleFilled /> */}
+          送出
+      </Button>
     </div>
   
     );
